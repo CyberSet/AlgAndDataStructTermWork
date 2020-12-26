@@ -15,7 +15,7 @@ public:
 	}
 
 	~elem() {
-		delete &symbol;
+
 	}
 
 	bool isBracket() {

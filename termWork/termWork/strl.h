@@ -18,7 +18,7 @@ public:
 	}
 
 	~strl() {
-		delete[] p;
+		//delete[] p;
 	}
 
 	char& operator[] (int i) {
@@ -32,8 +32,9 @@ public:
 
 	strl& operator+= (strl added) {
 		for (size_t i = 0; i < added.getSize(); i++)
-			p[size + i + 1] = added.p[i];
-		size += added.getSize();
+			p[size + i] = added.p[i];
+		size += added.getSize() + 1;
+		p[size - 1] = ' ';
 		return *this;
 	}
 	
@@ -82,7 +83,7 @@ public:
 	}
 
 	bool isDigit() {
-		if ((p[0] - '0' >= 0 && p[0] - '0' <= 9) || *this == "pi" || *this == "e") return true;
+		if ((p[0] >= '0' && p[0] <= '9') || *this == "pi" || *this == "e") return true;
 		else return false;
 	}
 
