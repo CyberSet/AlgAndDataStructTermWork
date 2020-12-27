@@ -34,6 +34,11 @@ public:
         size++;
     }
 
+    void push(double value) {
+        top = new elem(value, top);
+        size++;
+    }
+
     size_t getSize() {
         return size;
     }

@@ -1,20 +1,31 @@
 #pragma once
 #include <fstream>
+#include <cmath>
 #ifndef STRL_H
 #define STRL_H
+const int N = 128;
 using namespace std;
 class strl {
 private:
-	char p[128];
+	char p[N];
 	size_t size;
 public:
 	strl() {
 		size = 0;
 	}
 
-	strl(const char arr[128]) {
+	strl(const char arr[N]) {
 		size = 0;
-		while (size < 128 && arr[size] != '\0') p[size] = arr[size++];
+		while (size < N && arr[size] != '\0') p[size] = arr[size++];
+	}
+
+	strl(double value) { //parsing double to string using sprintf
+		char temp[N];
+		sprintf_s(temp, "%f", value);
+		int i = 0;
+		while (i < N && ((temp[i] >= '0' && temp[i]<='9') || temp[i] == '.' || temp[i] == '-'))
+			p[i] = temp[i++];
+		size = i;
 	}
 
 	~strl() {
@@ -25,7 +36,7 @@ public:
 		return p[i];
 	}
 
-	strl& operator+= (char added) {
+	strl& operator+= (char added) { //adding single char to string`s end
 		p[size++] = added;
 		return *this;
 	}
@@ -84,16 +95,38 @@ public:
 
 	bool isDigit() {
 		if ((p[0] >= '0' && p[0] <= '9') || *this == "pi" || *this == "e") return true;
+		else if (p[0] == '-' && p[1] >= '0' && p[1] <= '9') return true;
 		else return false;
 	}
 
 	int getOperationWeight() {
-		strl symbol = *this;
-		if (symbol == "(") return 0;
-		else if (symbol == "+" || symbol == "-") return 1;
-		else if (symbol == "*" || symbol == "/" || symbol == "%") return 2;
-		else if (symbol == "^") return 3;
-		else if (symbol == "cos" || symbol == "sin" || symbol == "tg" || symbol == "ctg" || symbol == "ln" || symbol == "log" || symbol == "ln" || symbol == "sqrt") return 4;
+		if (*this == "(") return 0;
+		else if (*this == "+" || *this == "-") return 1;
+		else if (*this == "*" || *this == "/" || *this == "%") return 2;
+		else if (*this == "^") return 3;
+		else if (*this == "cos" || *this == "sin" || *this == "tg" || *this == "ctg" || *this == "ln" || *this == "log" ||  *this == "sqrt") return 4;
+	}
+
+	double perform(strl first_operand) { //carrying out operations with single operand
+		double operand = atof(first_operand.p);
+		if (*this == "cos") return cos(operand);
+		if (*this == "sin") return sin(operand);
+		if (*this == "tg") return tan(operand);
+		if (*this == "ctg") return 1 / tan(operand);
+		if (*this == "ln") return log(operand);
+		if (*this == "log") return log10(operand);
+		if (*this == "sqrt") return sqrt(operand);
+	}
+
+	double perform(strl first_operand, strl second_operand) { //carrying out operations with 2 operands
+		double second = atof(first_operand.p); // in case we are taking two operands they already swapped in stack
+		double first = atof(second_operand.p); // we need to swap them again
+		if (*this == "+") return first + second;
+		if (*this == "-") return first - second;
+		if (*this == "*") return first * second;
+		if (*this == "/") return first / second;
+		if (*this == "%") return fmod(first, second);
+		if (*this == "^") return pow(first, second);
 	}
 
 };

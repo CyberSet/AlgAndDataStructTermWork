@@ -13,7 +13,10 @@ int main(){
 	strl infix;
 	infix.input(input);
 	postfix pf(infix);
+	output << "Postfix form: ";
 	pf.getStream().output(output);
+	output << "= ";
+	pf.calculate().output(output);
 	output.close();
 	input.close();
 	return 0;

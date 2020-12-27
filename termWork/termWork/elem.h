@@ -14,6 +14,12 @@ public:
 		weight = elem_symbol.getOperationWeight();
 	}
 
+	elem(double value, elem* elem_next) {
+		symbol = value;
+		next = elem_next;
+		weight = -1;
+	}
+
 	~elem() {
 
 	}

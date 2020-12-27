@@ -8,7 +8,7 @@ private:
 	stack operations;
 	strl outstream;
 public:
-	postfix(strl infix) {
+	postfix(strl infix) { //convert correct infix form to postfix
 		strl cur;
 		int curOperationWeight = 0;
 		for (int i = 0; i <= infix.getSize(); i++) {
@@ -18,7 +18,7 @@ public:
 				else if (cur.isDigit()) 
 					outstream += cur;
 				else if (cur == ")") {
-					while (operations.getTop().getSymbol() != "(")
+					while (!operations.isEmpty() && operations.getTop().getSymbol() != "(")
 						addOperationToStream();
 					operations.pop();
 				}
@@ -35,11 +35,39 @@ public:
 			addOperationToStream();
 	}
 
+	strl calculate() { //calculating expression in postfix form
+		double res = 0;
+		strl cur;
+		for (int i = 0; i < outstream.getSize(); i++) {
+			if (outstream[i] != ' ') cur += outstream[i];
+			else {
+				if (cur.isDigit()) {
+					if (cur == "pi") cur = 3.1415926535;
+					else if (cur == "e") cur = 2.71828182846;
+					operations.push(cur);
+				}
+				else if (cur.getOperationWeight() == 4) {
+					res = cur.perform(operations.getTop().getSymbol());
+					operations.pop();
+					operations.push(res);
+				}
+				else {
+					res = cur.perform(operations.getTop().getSymbol(), operations.getTop().getNext()->getSymbol());
+					operations.pop();
+					operations.pop();
+					operations.push(res);
+				}
+				cur = "";
+			}
+		}
+		return operations.getTop().getSymbol();
+	}
+
 	strl getStream() {
 		return outstream;
 	}
 
-	void addOperationToStream() {
+	void addOperationToStream() { // removing current operation from stack and place to output
 		outstream += operations.getTop().getSymbol();
 		operations.pop();
 	}
