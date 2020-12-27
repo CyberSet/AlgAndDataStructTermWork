@@ -29,11 +29,6 @@ public:
 		else return false;
 	}
 
-	bool isDigit() {
-		if ((symbol[0] - '0' >= 0 && symbol[0] - '0' <= 9) || symbol == "pi" || symbol == "e") return true;
-		else return false;
-	}
-
 	elem* getNext() {
 		return next;
 	}

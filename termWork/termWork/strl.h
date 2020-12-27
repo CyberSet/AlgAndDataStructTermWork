@@ -99,12 +99,18 @@ public:
 		else return false;
 	}
 
+	bool isOperation() {
+		if (getOperationWeight() == -1) return false;
+		else return true;
+	}
+
 	int getOperationWeight() {
-		if (*this == "(") return 0;
+		if (*this == "(" || *this == ")") return 0;
 		else if (*this == "+" || *this == "-") return 1;
 		else if (*this == "*" || *this == "/" || *this == "%") return 2;
 		else if (*this == "^") return 3;
-		else if (*this == "cos" || *this == "sin" || *this == "tg" || *this == "ctg" || *this == "ln" || *this == "log" ||  *this == "sqrt") return 4;
+		else if (*this == "cos" || *this == "sin" || *this == "tg" || *this == "ctg" || *this == "ln" || *this == "log" || *this == "sqrt") return 4;
+		else return -1;
 	}
 
 	double perform(strl first_operand) { //carrying out operations with single operand
@@ -129,6 +135,36 @@ public:
 		if (*this == "^") return pow(first, second);
 	}
 
+	bool isCorrectInfix(fstream &toOut) {
+		int bracketsCount = 0;
+		strl cur;
+		for (int i = 0; i <= size; i++) {
+			if (p[i] != ' ' && i != size) cur += p[i];
+			else {
+				if (!cur.isOperation() && !cur.isDigit()) {
+					toOut << "\nUnknown character detected at " << i << " position is ";
+					cur.output(toOut);
+					return false;
+				}
+				else {
+					if (cur == "(") bracketsCount += 1;
+					else if (cur == ")") {
+						if (bracketsCount > 0) bracketsCount -= 1;
+						else {
+							toOut << "\nIncorrect placement of brackets";
+							return false;
+						}
+					}
+				}
+				cur = "";
+			}
+		}
+		if (!bracketsCount) return true;
+		else {
+			toOut << "\nIncorrect placement of brackets";
+			return false;
+		}
+	}
+
 };
 #endif // !STRL_H
-

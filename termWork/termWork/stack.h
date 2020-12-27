@@ -50,6 +50,7 @@ public:
     void clear() {
         while (!isEmpty()) pop();
     }
+
 };
 
 #endif // !STACK_H

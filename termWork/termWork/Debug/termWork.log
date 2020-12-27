@@ -2,9 +2,9 @@
 F:\Универ\Прога 3 сем\AlgAndDataStructTermWork\termWork\termWork\strl.h(54,21): warning C4018: '<': signed/unsigned mismatch
 F:\Универ\Прога 3 сем\AlgAndDataStructTermWork\termWork\termWork\strl.h(61,21): warning C4018: '<': signed/unsigned mismatch
 F:\Универ\Прога 3 сем\AlgAndDataStructTermWork\termWork\termWork\strl.h(93,12): warning C4018: '<': signed/unsigned mismatch
-F:\Универ\Прога 3 сем\AlgAndDataStructTermWork\termWork\termWork\postfix.h(14,21): warning C4018: '<=': signed/unsigned mismatch
-F:\Универ\Прога 3 сем\AlgAndDataStructTermWork\termWork\termWork\postfix.h(41,21): warning C4018: '<': signed/unsigned mismatch
-F:\Универ\Прога 3 сем\AlgAndDataStructTermWork\termWork\termWork\strl.h(108): warning C4715: 'strl::getOperationWeight': not all control paths return a value
-F:\Универ\Прога 3 сем\AlgAndDataStructTermWork\termWork\termWork\strl.h(119): warning C4715: 'strl::perform': not all control paths return a value
-F:\Универ\Прога 3 сем\AlgAndDataStructTermWork\termWork\termWork\strl.h(130): warning C4715: 'strl::perform': not all control paths return a value
+F:\Универ\Прога 3 сем\AlgAndDataStructTermWork\termWork\termWork\strl.h(141,21): warning C4018: '<=': signed/unsigned mismatch
+F:\Универ\Прога 3 сем\AlgAndDataStructTermWork\termWork\termWork\postfix.h(15,21): warning C4018: '<=': signed/unsigned mismatch
+F:\Универ\Прога 3 сем\AlgAndDataStructTermWork\termWork\termWork\postfix.h(45,21): warning C4018: '<': signed/unsigned mismatch
+F:\Универ\Прога 3 сем\AlgAndDataStructTermWork\termWork\termWork\strl.h(125): warning C4715: 'strl::perform': not all control paths return a value
+F:\Универ\Прога 3 сем\AlgAndDataStructTermWork\termWork\termWork\strl.h(136): warning C4715: 'strl::perform': not all control paths return a value
   termWork.vcxproj -> F:\Универ\Прога 3 сем\AlgAndDataStructTermWork\termWork\Debug\termWork.exe

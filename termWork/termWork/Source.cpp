@@ -12,11 +12,14 @@ int main(){
 	output.open("output.txt", ios::out);
 	strl infix;
 	infix.input(input);
-	postfix pf(infix);
-	output << "Postfix form: ";
-	pf.getStream().output(output);
-	output << "= ";
-	pf.calculate().output(output);
+	infix.output(output);
+	if (infix.isCorrectInfix(output)) {
+		postfix pf(infix);
+		output << "\nPostfix form: ";
+		pf.getStream().output(output);
+		output << "= ";
+		pf.calculate().output(output);
+	}
 	output.close();
 	input.close();
 	return 0;
