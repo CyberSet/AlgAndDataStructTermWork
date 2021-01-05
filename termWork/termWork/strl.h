@@ -41,11 +41,11 @@ public:
 		return *this;
 	}
 
-	strl& operator+= (strl added) {
+	strl& operator+= (strl added) { //adding another string to string`s end
 		for (size_t i = 0; i < added.getSize(); i++)
 			p[size + i] = added.p[i];
 		size += added.getSize() + 1;
-		p[size - 1] = ' ';
+		p[size - 1] = ' '; //paste space to end
 		return *this;
 	}
 	
@@ -61,17 +61,7 @@ public:
 		for (int i = 0; i < first_compared.size; i++)
 			if (first_compared.p[i] != second_compared.p[i]) return true;
 		return false;
-		/*
-		if (first_compared == second_compared) return false;
-		else return true;
-		*/
 	}
-
-	/*
-	friend bool operator== (const strl& first_compared, const char second_compared[128]) {
-		
-	}
-	*/
 
 	size_t getSize() {
 		return size;
@@ -104,7 +94,7 @@ public:
 		else return true;
 	}
 
-	int getOperationWeight() {
+	int getOperationWeight() { // getting weight to solve example with correct order
 		if (*this == "(" || *this == ")") return 0;
 		else if (*this == "+" || *this == "-") return 1;
 		else if (*this == "*" || *this == "/" || *this == "%") return 2;
@@ -141,17 +131,17 @@ public:
 		for (int i = 0; i <= size; i++) {
 			if (p[i] != ' ' && i != size) cur += p[i];
 			else {
-				if (!cur.isOperation() && !cur.isDigit()) {
-					toOut << "\nUnknown character detected at " << i << " position is ";
+				if (!cur.isOperation() && !cur.isDigit()) { // if current string isn`t operation or digit throw position of unkown string 
+					toOut << "\nUnknown character detected at " << i - cur.getSize() << " position is ";
 					cur.output(toOut);
 					return false;
 				}
-				else {
-					if (cur == "(") bracketsCount += 1;
+				else { // if current string is operation or digit check brackets positions
+					if (cur == "(") bracketsCount += 1; // if current character is left parentheses increase brackets counter by 1
 					else if (cur == ")") {
-						if (bracketsCount > 0) bracketsCount -= 1;
+						if (bracketsCount > 0) bracketsCount -= 1; // if current character is end parentheses and exist previous left parentheses decrease brackets count by 1
 						else {
-							toOut << "\nIncorrect placement of brackets";
+							toOut << "\nIncorrect placement of brackets"; // else throw that we have brackets placement mistake
 							return false;
 						}
 					}
@@ -159,7 +149,7 @@ public:
 				cur = "";
 			}
 		}
-		if (!bracketsCount) return true;
+		if (!bracketsCount) return true; // if we have got left parenthese without pair throw brackets placement mistake
 		else {
 			toOut << "\nIncorrect placement of brackets";
 			return false;
