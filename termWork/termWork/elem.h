@@ -2,31 +2,21 @@
 #include "strl.h"
 #ifndef ELEM_H
 #define ELEM_H
+template <class T>
 class elem {
 private:
-	strl symbol;
+	T value;
 	int weight;
 	elem* next;
 public:
-	elem(strl elem_symbol, elem* elem_next) {
-		symbol = elem_symbol;
+	elem(T elem_value, elem<T>* elem_next) {
+		value = elem_value;
 		next = elem_next;
-		weight = elem_symbol.getOperationWeight();
-	}
-
-	elem(double value, elem* elem_next) {
-		symbol = value;
-		next = elem_next;
-		weight = -1;
+		weight = elem_value.getOperationWeight();
 	}
 
 	~elem() {
 
-	}
-
-	bool isBracket() {
-		if (symbol == "(" || symbol == ")") return true;
-		else return false;
 	}
 
 	elem* getNext() {
@@ -37,8 +27,8 @@ public:
 		return weight;
 	}
 
-	strl getSymbol() {
-		return symbol;
+	strl getValue() {
+		return value;
 	}
 };
 #endif // !ELEM_H

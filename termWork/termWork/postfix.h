@@ -5,7 +5,7 @@
 #define POSTFIX_H
 class postfix {
 private:
-	stack operations;
+	stack<strl> operations;
 	strl outstream;
 public:
 	postfix(strl infix) { //convert correct infix form to postfix
@@ -20,14 +20,14 @@ public:
 				else if (cur.isDigit())
 					outstream += cur;
 				else if (cur == ")") {
-					while (!operations.isEmpty() && operations.getTop().getSymbol() != "(")
+					while (!operations.isEmpty() && operations.getTop()->getValue() != "(")
 						addOperationToStream();
 					operations.pop();
 				}
 				else {
 					if (cur != " ") {
 						curOperationWeight = cur.getOperationWeight();
-						while (!operations.isEmpty() && operations.getTop().getWeight() >= curOperationWeight)
+						while (!operations.isEmpty() && operations.getTop()->getWeight() >= curOperationWeight)
 							addOperationToStream();
 						operations.push(cur);
 					}
@@ -51,12 +51,12 @@ public:
 					operations.push(cur);
 				}
 				else if (cur.getOperationWeight() == 4) {
-					res = cur.perform(operations.getTop().getSymbol());
+					res = cur.perform(operations.getTop()->getValue());
 					operations.pop();
 					operations.push(res);
 				}
 				else {
-					res = cur.perform(operations.getTop().getSymbol(), operations.getTop().getNext()->getSymbol());
+					res = cur.perform(operations.getTop()->getValue(), operations.getTop()->getNext()->getValue());
 					operations.pop();
 					operations.pop();
 					operations.push(res);
@@ -64,7 +64,7 @@ public:
 				cur = "";
 			}
 		}
-		return operations.getTop().getSymbol();
+		return operations.getTop()->getValue();
 	}
 
 	strl getStream() {
@@ -72,7 +72,7 @@ public:
 	}
 
 	void addOperationToStream() { // removing current operation from stack and place to output
-		outstream += operations.getTop().getSymbol();
+		outstream += operations.getTop()->getValue();
 		operations.pop();
 	}
 

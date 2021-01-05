@@ -2,11 +2,11 @@
 #include "elem.h"
 #ifndef STACK_H
 #define STACK_H
-
+template <class T>
 class stack {
 private:
     size_t size;
-    elem* top;
+    elem<T>* top;
 public:
     stack() {
         size = 0;
@@ -17,25 +17,20 @@ public:
         clear();
     }
 
-    elem getTop() {
-        return *top;
+    elem<T>* getTop() {
+        return top;
     }
 
     void pop()
     {
-        elem* temp = top;
+        elem<T>* temp = top;
         top = top->getNext();
         delete temp;
         size--;
     }
 
-    void push(strl value) {
-        top = new elem(value, top);
-        size++;
-    }
-
-    void push(double value) {
-        top = new elem(value, top);
+    void push(T value) {
+        top = new elem<T>(value, top);
         size++;
     }
 
