@@ -48,4 +48,11 @@ public:
 
 };
 
+void stack<strl>::push(strl value)
+{
+    top = new elem<strl>(value, top);
+    size++;
+    int temp = top->getValue().getOperationWeight();
+}
+
 #endif // !STACK_H

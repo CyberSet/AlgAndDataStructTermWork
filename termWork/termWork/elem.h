@@ -6,13 +6,11 @@ template <class T>
 class elem {
 private:
 	T value;
-	int weight;
 	elem* next;
 public:
 	elem(T elem_value, elem<T>* elem_next) {
 		value = elem_value;
 		next = elem_next;
-		weight = elem_value.getOperationWeight();
 	}
 
 	~elem() {
@@ -23,11 +21,8 @@ public:
 		return next;
 	}
 
-	int getWeight() {
-		return weight;
-	}
 
-	strl getValue() {
+	T getValue() {
 		return value;
 	}
 };

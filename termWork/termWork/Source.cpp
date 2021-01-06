@@ -1,5 +1,4 @@
 #include <fstream>
-#include <iostream>
 #include "strl.h"
 #include "postfix.h"
 

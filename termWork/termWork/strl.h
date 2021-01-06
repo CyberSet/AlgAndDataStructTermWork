@@ -8,22 +8,25 @@ using namespace std;
 class strl {
 private:
 	char p[N];
+	int weight;
 	size_t size;
 public:
 	strl() {
 		size = 0;
+		weight = -1;
 	}
 
 	strl(const char arr[N]) {
 		size = 0;
 		while (size < N && arr[size] != '\0') p[size] = arr[size++];
+		weight = -1;
 	}
 
 	strl(double value) { //parsing double to string using sprintf
 		char temp[N];
 		sprintf_s(temp, "%f", value);
 		int i = 0;
-		while (i < N && ((temp[i] >= '0' && temp[i]<='9') || temp[i] == '.' || temp[i] == '-'))
+		while (i < N && ((temp[i] >= '0' && temp[i] <= '9') || temp[i] == '.' || temp[i] == '-'))
 			p[i] = temp[i++];
 		size = i;
 	}
@@ -48,7 +51,7 @@ public:
 		p[size - 1] = ' '; //paste space to end
 		return *this;
 	}
-	
+
 	friend bool operator== (const strl& first_compared, const strl& second_compared) {
 		if (first_compared.size != second_compared.size) return false;
 		for (int i = 0; i < first_compared.size; i++)
@@ -67,6 +70,11 @@ public:
 		return size;
 	}
 
+	const char* getStream() {
+		return p;
+	}
+
+
 	void input(fstream& f){
 		size = 0;
 		char s = ' ';
@@ -84,9 +92,32 @@ public:
 	}
 
 	bool isDigit() {
-		if ((p[0] >= '0' && p[0] <= '9') || *this == "pi" || *this == "e") return true;
-		else if (p[0] == '-' && p[1] >= '0' && p[1] <= '9') return true;
-		else return false;
+		bool flag = true;
+		int i = 0;
+		if (*this == "pi" || *this == "e") return true;
+		else {
+			if (p[0] == '-') {
+				if (size == 1 || p[1] == '.') return false;
+				i++;
+			}
+			else {
+				if (p[0] == '.') return false;
+			}
+			while (i < size) {
+				if (p[i] >= '0' && p[i] <= '9') {
+					i++;
+				}
+				else {
+					if (p[i] == '.' && flag) {
+						flag = false;
+						i++;
+					}
+					else return false;
+				}
+			}
+			return true;
+		}
+		return true;
 	}
 
 	bool isOperation() {
@@ -95,34 +126,34 @@ public:
 	}
 
 	int getOperationWeight() { // getting weight to solve example with correct order
-		if (*this == "(" || *this == ")") return 0;
-		else if (*this == "+" || *this == "-") return 1;
-		else if (*this == "*" || *this == "/" || *this == "%") return 2;
-		else if (*this == "^") return 3;
-		else if (*this == "cos" || *this == "sin" || *this == "tg" || *this == "ctg" || *this == "ln" || *this == "log" || *this == "sqrt") return 4;
-		else return -1;
+		if (*this == "(" || *this == ")") weight = 0;
+		else if (*this == "+" || *this == "-") weight = 1;
+		else if (*this == "*" || *this == "/" || *this == "%") weight = 2;
+		else if (*this == "^") weight = 3;
+		else if (*this == "cos" || *this == "sin" || *this == "tg" || *this == "ctg" || *this == "ln" || *this == "log" || *this == "sqrt") weight = 4;
+		else weight = -1;
+		return weight;
 	}
 
-	double perform(strl first_operand) { //carrying out operations with single operand
-		double operand = atof(first_operand.p);
-		if (*this == "cos") return cos(operand);
-		if (*this == "sin") return sin(operand);
-		if (*this == "tg") return tan(operand);
-		if (*this == "ctg") return 1 / tan(operand);
-		if (*this == "ln") return log(operand);
-		if (*this == "log") return log10(operand);
-		if (*this == "sqrt") return sqrt(operand);
+	double perform(double first_operand) { //carrying out operations with single operand
+		if (*this == "cos") return cos(first_operand);
+		if (*this == "sin") return sin(first_operand);
+		if (*this == "tg") return tan(first_operand);
+		if (*this == "ctg") return 1 / tan(first_operand);
+		if (*this == "ln") return log(first_operand);
+		if (*this == "log") return log10(first_operand);
+		if (*this == "sqrt") return sqrt(first_operand);
 	}
 
-	double perform(strl first_operand, strl second_operand) { //carrying out operations with 2 operands
-		double second = atof(first_operand.p); // in case we are taking two operands they already swapped in stack
-		double first = atof(second_operand.p); // we need to swap them again
-		if (*this == "+") return first + second;
-		if (*this == "-") return first - second;
-		if (*this == "*") return first * second;
-		if (*this == "/") return first / second;
-		if (*this == "%") return fmod(first, second);
-		if (*this == "^") return pow(first, second);
+	double perform(double first_operand, double second_operand) { //carrying out operations with 2 operands
+		// in case we are taking two operands they already swapped in stack
+		// we need to swap them again
+		if (*this == "+") return first_operand + second_operand;
+		if (*this == "-") return second_operand - first_operand;
+		if (*this == "*") return first_operand * second_operand;
+		if (*this == "/") return second_operand / first_operand;
+		if (*this == "%") return fmod(second_operand, first_operand);
+		if (*this == "^") return pow(second_operand, first_operand);
 	}
 
 	bool isCorrectInfix(fstream &toOut) {

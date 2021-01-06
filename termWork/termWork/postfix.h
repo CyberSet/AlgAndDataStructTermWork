@@ -6,6 +6,7 @@
 class postfix {
 private:
 	stack<strl> operations;
+	stack<double> operands;
 	strl outstream;
 public:
 	postfix(strl infix) { //convert correct infix form to postfix
@@ -15,8 +16,10 @@ public:
 		for (int i = 0; i <= infix.getSize(); i++) {
 			if (infix[i] != ' ' && i != infix.getSize()) cur += infix[i];
 			else {
-				if (cur == "(") 
+				if (cur == "(") {
+					curOperationWeight = cur.getOperationWeight();
 					operations.push(cur);
+				}
 				else if (cur.isDigit())
 					outstream += cur;
 				else if (cur == ")") {
@@ -27,7 +30,7 @@ public:
 				else {
 					if (cur != " ") {
 						curOperationWeight = cur.getOperationWeight();
-						while (!operations.isEmpty() && operations.getTop()->getWeight() >= curOperationWeight)
+						while (!operations.isEmpty() && operations.getTop()->getValue().getOperationWeight() >= curOperationWeight)
 							addOperationToStream();
 						operations.push(cur);
 					}
@@ -46,25 +49,25 @@ public:
 			if (outstream[i] != ' ') cur += outstream[i];
 			else {
 				if (cur.isDigit()) {
-					if (cur == "pi") cur = 3.1415926535;
-					else if (cur == "e") cur = 2.71828182846;
-					operations.push(cur);
+					if (cur == "pi") operands.push(3.1415926535);
+					else if (cur == "e") operands.push(2.71828182846);
+					else operands.push(atof(cur.getStream()));
 				}
 				else if (cur.getOperationWeight() == 4) {
-					res = cur.perform(operations.getTop()->getValue());
-					operations.pop();
-					operations.push(res);
+					res = cur.perform(operands.getTop()->getValue());
+					operands.pop();
+					operands.push(res);
 				}
 				else {
-					res = cur.perform(operations.getTop()->getValue(), operations.getTop()->getNext()->getValue());
-					operations.pop();
-					operations.pop();
-					operations.push(res);
+					res = cur.perform(operands.getTop()->getValue(), operands.getTop()->getNext()->getValue());
+					operands.pop();
+					operands.pop();
+					operands.push(res);
 				}
 				cur = "";
 			}
 		}
-		return operations.getTop()->getValue();
+		return operands.getTop()->getValue();
 	}
 
 	strl getStream() {

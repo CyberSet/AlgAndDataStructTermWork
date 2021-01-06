@@ -86,7 +86,7 @@ namespace TermWorkUnitTest
 		{
 			infix = "( 2 + 3 * ( 4 ^ cos ( pi / 4 ) ) )";
 			postfix pf(infix);
-			Assert::IsTrue(pf.calculate() == 9.995435);
+			Assert::IsTrue(pf.calculate() == 9.99543242807);
 		}
 
 		TEST_METHOD(CalculateTest4)
@@ -103,5 +103,70 @@ namespace TermWorkUnitTest
 			Assert::IsTrue(pf.calculate() == 84841045620976762880.000000);
 		}
 
+		TEST_METHOD(isDigitTest1)
+		{
+			infix = "2";
+			Assert::IsTrue(infix.isDigit());
+		}
+
+		TEST_METHOD(isDigitTest2)
+		{
+			infix = "-1";
+			Assert::IsTrue(infix.isDigit());
+		}
+
+		TEST_METHOD(isDigitTest3)
+		{
+			infix = "-";
+			Assert::IsFalse(infix.isDigit());
+		}
+
+		TEST_METHOD(isDigitTest4)
+		{
+			infix = ".0213123";
+			Assert::IsFalse(infix.isDigit());
+		}
+
+		TEST_METHOD(isDigitTest5)
+		{
+			infix = "2.032363";
+			Assert::IsTrue(infix.isDigit());
+		}
+
+		TEST_METHOD(isDigitTest6)
+		{
+			infix = "-2.3213713";
+			Assert::IsTrue(infix.isDigit());
+		}
+
+		TEST_METHOD(isDigitTest7)
+		{
+			infix = "-2.3-213713";
+			Assert::IsFalse(infix.isDigit());
+		}
+
+		TEST_METHOD(isDigitTest8)
+		{
+			infix = "-2.3.213713";
+			Assert::IsFalse(infix.isDigit());
+		}
+
+		TEST_METHOD(isDigitTest9)
+		{
+			infix = "-.36712";
+			Assert::IsFalse(infix.isDigit());
+		}
+
+		TEST_METHOD(isDigitTest10)
+		{
+			infix = "abrakadabra";
+			Assert::IsFalse(infix.isDigit());
+		}
+
+		TEST_METHOD(isDigitTest11)
+		{
+			infix = "0.";
+			Assert::IsTrue(infix.isDigit());
+		}
 	};
 }
