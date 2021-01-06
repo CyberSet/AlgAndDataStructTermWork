@@ -42,15 +42,15 @@ public:
 			addOperationToStream();
 	}
 
-	strl calculate() { //calculating expression in postfix form
+	double calculate() { //calculating expression in postfix form
 		double res = 0;
 		strl cur;
 		for (int i = 0; i < outstream.getSize(); i++) {
 			if (outstream[i] != ' ') cur += outstream[i];
 			else {
 				if (cur.isDigit()) {
-					if (cur == "pi") operands.push(3.1415926535);
-					else if (cur == "e") operands.push(2.71828182846);
+					if (cur == "pi") operands.push(PI);
+					else if (cur == "e") operands.push(E);
 					else operands.push(atof(cur.getStream()));
 				}
 				else if (cur.getOperationWeight() == 4) {

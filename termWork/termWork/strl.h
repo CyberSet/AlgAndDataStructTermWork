@@ -4,6 +4,8 @@
 #ifndef STRL_H
 #define STRL_H
 const int N = 128;
+const double PI = 2 * acos(0.0);
+const double E = exp(1.0);
 using namespace std;
 class strl {
 private:

@@ -1,11 +1,11 @@
 ﻿  Source.cpp
-F:\Универ\Прога 3 сем\AlgAndDataStructTermWork\termWork\termWork\strl.h(57,21): warning C4018: '<': signed/unsigned mismatch
-F:\Универ\Прога 3 сем\AlgAndDataStructTermWork\termWork\termWork\strl.h(64,21): warning C4018: '<': signed/unsigned mismatch
-F:\Универ\Прога 3 сем\AlgAndDataStructTermWork\termWork\termWork\strl.h(91,12): warning C4018: '<': signed/unsigned mismatch
-F:\Универ\Прога 3 сем\AlgAndDataStructTermWork\termWork\termWork\strl.h(106,13): warning C4018: '<': signed/unsigned mismatch
-F:\Универ\Прога 3 сем\AlgAndDataStructTermWork\termWork\termWork\strl.h(162,21): warning C4018: '<=': signed/unsigned mismatch
+F:\Универ\Прога 3 сем\AlgAndDataStructTermWork\termWork\termWork\strl.h(59,21): warning C4018: '<': signed/unsigned mismatch
+F:\Универ\Прога 3 сем\AlgAndDataStructTermWork\termWork\termWork\strl.h(66,21): warning C4018: '<': signed/unsigned mismatch
+F:\Универ\Прога 3 сем\AlgAndDataStructTermWork\termWork\termWork\strl.h(93,12): warning C4018: '<': signed/unsigned mismatch
+F:\Универ\Прога 3 сем\AlgAndDataStructTermWork\termWork\termWork\strl.h(108,13): warning C4018: '<': signed/unsigned mismatch
+F:\Универ\Прога 3 сем\AlgAndDataStructTermWork\termWork\termWork\strl.h(164,21): warning C4018: '<=': signed/unsigned mismatch
 F:\Универ\Прога 3 сем\AlgAndDataStructTermWork\termWork\termWork\postfix.h(16,21): warning C4018: '<=': signed/unsigned mismatch
 F:\Универ\Прога 3 сем\AlgAndDataStructTermWork\termWork\termWork\postfix.h(48,21): warning C4018: '<': signed/unsigned mismatch
-F:\Универ\Прога 3 сем\AlgAndDataStructTermWork\termWork\termWork\strl.h(146): warning C4715: 'strl::perform': not all control paths return a value
-F:\Универ\Прога 3 сем\AlgAndDataStructTermWork\termWork\termWork\strl.h(157): warning C4715: 'strl::perform': not all control paths return a value
+F:\Универ\Прога 3 сем\AlgAndDataStructTermWork\termWork\termWork\strl.h(148): warning C4715: 'strl::perform': not all control paths return a value
+F:\Универ\Прога 3 сем\AlgAndDataStructTermWork\termWork\termWork\strl.h(159): warning C4715: 'strl::perform': not all control paths return a value
   termWork.vcxproj -> F:\Универ\Прога 3 сем\AlgAndDataStructTermWork\termWork\Debug\termWork.exe

@@ -72,35 +72,35 @@ namespace TermWorkUnitTest
 		{
 			infix = "( 2 + ( 3 + ( 4 + ( 5 + 6 * ( 7 + 8 ) ) ) ) )";
 			postfix pf(infix);
-			Assert::IsTrue(pf.calculate() == 104);
+			Assert::IsTrue(pf.calculate() == (2 + (3 + (4 + (5 + 6 * (7 + 8))))));
 		}
 
 		TEST_METHOD(CalculateTest2)
 		{
 			infix = "cos ( pi * 2 - ( 2 * pi ) )";
 			postfix pf(infix);
-			Assert::IsTrue(pf.calculate() == 1);
+			Assert::IsTrue(pf.calculate() == cos(PI * 2 - (2 * PI)));
 		}
 
 		TEST_METHOD(CalculateTest3)
 		{
 			infix = "( 2 + 3 * ( 4 ^ cos ( pi / 4 ) ) )";
 			postfix pf(infix);
-			Assert::IsTrue(pf.calculate() == 9.99543242807);
+			Assert::IsTrue(pf.calculate() == (2 + 3 * pow(4, cos(PI / 4))));
 		}
 
 		TEST_METHOD(CalculateTest4)
 		{
 			infix = "ln e";
 			postfix pf(infix);
-			Assert::IsTrue(pf.calculate() == 1);
+			Assert::IsTrue(pf.calculate() == log(E));
 		}
 
 		TEST_METHOD(CalculateTest5)
 		{
 			infix = "2382323.471247 * 35612731287312.415467126412";
 			postfix pf(infix);
-			Assert::IsTrue(pf.calculate() == 84841045620976762880.000000);
+			Assert::IsTrue(pf.calculate() == 2382323.471247 * 35612731287312.415467126412);
 		}
 
 		TEST_METHOD(isDigitTest1)

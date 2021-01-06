@@ -16,8 +16,7 @@ int main(){
 		postfix pf(infix);
 		output << "\nPostfix form: ";
 		pf.getStream().output(output);
-		output << "= ";
-		pf.calculate().output(output);
+		output << "= " << pf.calculate();
 	}
 	output.close();
 	input.close();
