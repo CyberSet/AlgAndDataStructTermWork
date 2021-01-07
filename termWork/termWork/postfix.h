@@ -9,6 +9,9 @@ private:
 	stack<double> operands;
 	strl outstream;
 public:
+
+	//TODO: realise work with unary minus
+
 	postfix(strl infix) { //convert correct infix form to postfix
 		strl cur;
 		int curOperationWeight = 0;
@@ -53,7 +56,7 @@ public:
 					else if (cur == "e") operands.push(E);
 					else operands.push(atof(cur.getStream()));
 				}
-				else if (cur.getOperationWeight() == 4) {
+				else if (cur.getOperationWeight() == oneArgumentOperationWeight) {
 					res = cur.perform(operands.getTop()->getValue());
 					operands.pop();
 					operands.push(res);

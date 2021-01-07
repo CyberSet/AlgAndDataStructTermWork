@@ -6,6 +6,7 @@
 const int N = 128;
 const double PI = 2 * acos(0.0);
 const double E = exp(1.0);
+enum operationWeight {notOperationWeight = -1, bracketsOperationWeight, sumOperationWeight, mulOperationWeight, powOperationWeight, oneArgumentOperationWeight};
 using namespace std;
 class strl {
 private:
@@ -22,15 +23,6 @@ public:
 		size = 0;
 		while (size < N && arr[size] != '\0') p[size] = arr[size++];
 		weight = -1;
-	}
-
-	strl(double value) { //parsing double to string using sprintf
-		char temp[N];
-		sprintf_s(temp, "%f", value);
-		int i = 0;
-		while (i < N && ((temp[i] >= '0' && temp[i] <= '9') || temp[i] == '.' || temp[i] == '-'))
-			p[i] = temp[i++];
-		size = i;
 	}
 
 	~strl() {
@@ -74,6 +66,16 @@ public:
 
 	const char* getStream() {
 		return p;
+	}
+
+	int getOperationWeight() { // getting weight to solve example with correct order
+		if (*this == "(" || *this == ")") weight = bracketsOperationWeight;
+		else if (*this == "+" || *this == "-") weight = sumOperationWeight;
+		else if (*this == "*" || *this == "/" || *this == "%") weight = mulOperationWeight;
+		else if (*this == "^") weight = powOperationWeight;
+		else if (*this == "cos" || *this == "sin" || *this == "tg" || *this == "ctg" || *this == "ln" || *this == "log" || *this == "sqrt") weight = oneArgumentOperationWeight;
+		else weight = notOperationWeight;
+		return weight;
 	}
 
 
@@ -123,18 +125,8 @@ public:
 	}
 
 	bool isOperation() {
-		if (getOperationWeight() == -1) return false;
+		if (getOperationWeight() == notOperationWeight) return false;
 		else return true;
-	}
-
-	int getOperationWeight() { // getting weight to solve example with correct order
-		if (*this == "(" || *this == ")") weight = 0;
-		else if (*this == "+" || *this == "-") weight = 1;
-		else if (*this == "*" || *this == "/" || *this == "%") weight = 2;
-		else if (*this == "^") weight = 3;
-		else if (*this == "cos" || *this == "sin" || *this == "tg" || *this == "ctg" || *this == "ln" || *this == "log" || *this == "sqrt") weight = 4;
-		else weight = -1;
-		return weight;
 	}
 
 	double perform(double first_operand) { //carrying out operations with single operand
