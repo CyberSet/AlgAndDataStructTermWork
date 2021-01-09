@@ -8,6 +8,9 @@ const double PI = 2 * acos(0.0);
 const double E = exp(1.0);
 enum operationWeight {notOperationWeight = -1, bracketsOperationWeight, sumOperationWeight, mulOperationWeight, powOperationWeight, oneArgumentOperationWeight};
 using namespace std;
+
+//TODO: isCorrectInfix
+
 class strl {
 private:
 	char p[N];
