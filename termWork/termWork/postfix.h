@@ -9,33 +9,40 @@ private:
 	stack<double> operands;
 	strl outstream;
 public:
-
-	//TODO: realise work with unary minus
-
 	postfix(strl infix) { //convert correct infix form to postfix
 		strl cur;
 		int curOperationWeight = 0;
-		bool flag = false;
+		bool ableToUnaryMinus = true;
 		for (int i = 0; i <= infix.getSize(); i++) {
 			if (infix[i] != ' ' && i != infix.getSize()) cur += infix[i];
 			else {
 				if (cur == "(") {
-					curOperationWeight = cur.getOperationWeight();
 					operations.push(cur);
+					ableToUnaryMinus = true;
 				}
 				else if (cur.isDigit())
+				{
 					outstream += cur;
+					ableToUnaryMinus = false;
+				}
 				else if (cur == ")") {
 					while (!operations.isEmpty() && operations.getTop()->getValue() != "(")
 						addOperationToStream();
 					operations.pop();
+					ableToUnaryMinus = false;
 				}
 				else {
-					if (cur != " ") {
+					if (cur == "-" && ableToUnaryMinus) {
+						operations.push("*");
+						outstream += "-1";
+						ableToUnaryMinus = false;
+					}
+					else{
 						curOperationWeight = cur.getOperationWeight();
 						while (!operations.isEmpty() && operations.getTop()->getValue().getOperationWeight() >= curOperationWeight)
 							addOperationToStream();
 						operations.push(cur);
+						ableToUnaryMinus = true;
 					}
 				}
 				cur = "";

@@ -103,6 +103,34 @@ namespace TermWorkUnitTest
 			Assert::IsTrue(pf.calculate() == 2382323.471247 * 35612731287312.415467126412);
 		}
 
+		TEST_METHOD(UnaryMinusCalculateTest1)
+		{
+			infix = "- ( 2 + 2 )";
+			postfix pf(infix);
+			Assert::IsTrue(pf.calculate() == -(2+2));
+		}
+
+		TEST_METHOD(UnaryMinusCalculateTest2)
+		{
+			infix = "tg ( - pi / 4 )";
+			postfix pf(infix);
+			Assert::IsTrue(pf.calculate() == tan(-PI/4));
+		}
+
+		TEST_METHOD(UnaryMinusCalculateTest3)
+		{
+			infix = "cos ( - ( pi / 4 ) + pi / 4 )";
+			postfix pf(infix);
+			Assert::IsTrue(pf.calculate() == cos(-(PI / 4) + PI / 4));
+		}
+
+		TEST_METHOD(UnaryMinusCalculateTest4)
+		{
+			infix = "2 / - ( 2 - 1 )";
+			postfix pf(infix);
+			Assert::IsTrue(pf.calculate() == 2 / -(2 - 1));
+		}
+
 		TEST_METHOD(isDigitTest1)
 		{
 			infix = "2";
